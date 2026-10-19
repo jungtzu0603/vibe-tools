@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111323">
+<title>拖延症救星｜Quest Mode</title>
+<style>
+:root{--bg:#101221;--panel:#191c30;--panel2:#20243b;--line:#303552;--text:#f3f3ff;--muted:#a3a8c5;--purple:#a78bfa;--blue:#67d7ff;--green:#71e6b1;--pink:#ff8fc7;--yellow:#ffd479}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#28234a 0,transparent 38%),radial-gradient(ellipse at 100% 25%,#162f4a 0,transparent 32%),var(--bg);color:var(--text);font-family:Inter,"Noto Sans TC",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+button,input,select{font:inherit}button{cursor:pointer;transition:transform .15s,filter .15s}button:hover{filter:brightness(1.12);transform:translateY(-1px)}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.app{max-width:1200px;margin:auto;padding:28px 22px 48px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:28px}.brand{display:flex;align-items:center;gap:12px}.brand-icon{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,#a78bfa,#6f8cff);font-size:25px;box-shadow:0 8px 28px #9273ff40}.brand h1{font-size:clamp(20px,3vw,27px);margin:0;letter-spacing:.3px}.brand p{margin:4px 0 0;color:var(--muted);font-size:12px;letter-spacing:1.5px}.top-right{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:13px}.save-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:6px;box-shadow:0 0 10px #71e6b1}
+.hero{display:grid;grid-template-columns:1.4fr .9fr;gap:18px;margin-bottom:18px}.hero-card,.panel,.stat-card{background:linear-gradient(145deg,#1c2036f5,#171a2bf5);border:1px solid var(--line);border-radius:22px;box-shadow:0 18px 55px #05071330}.hero-card{padding:25px;position:relative;overflow:hidden}.hero-card:after{content:"✦";position:absolute;right:25px;top:15px;font-size:90px;color:#a78bfa12;pointer-events:none}.eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--purple);font-weight:800}.hero-card h2{font-size:clamp(24px,3.6vw,38px);line-height:1.25;margin:10px 0 8px}.hero-card h2 span{color:var(--purple)}.hero-card p{color:var(--muted);line-height:1.7;margin:0;max-width:520px;font-size:14px}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.btn{border:0;border-radius:12px;padding:11px 15px;font-weight:750;font-size:13px}.btn-primary{background:linear-gradient(135deg,#a78bfa,#7c8cff);color:#111323;box-shadow:0 7px 22px #9273ff2c}.btn-secondary{background:#292d47;color:var(--text);border:1px solid #3b4163}.btn-danger{background:#49263d;color:#ffc5df;border:1px solid #713b60}.profile-card{padding:23px;display:flex;flex-direction:column;justify-content:space-between;gap:18px}.profile-head{display:flex;justify-content:space-between;align-items:center}.level-label{color:var(--muted);font-size:12px}.level-number{font-size:28px;font-weight:900;margin-top:3px}.rank-icon{width:53px;height:53px;border-radius:17px;background:#a78bfa1c;border:1px solid #a78bfa50;display:grid;place-items:center;font-size:26px}.xp-line{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:9px}.xp-line strong{color:var(--text)}.progress{height:9px;background:#30334b;border-radius:20px;overflow:hidden}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--purple),var(--blue));border-radius:20px;transition:width .3s}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}.stat-card{padding:17px 19px}.stat-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px}.stat-icon{font-size:20px}.stat-value{font-size:28px;font-weight:850;margin:10px 0 3px}.stat-note{font-size:11px;color:var(--muted)}.main-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(290px,.7fr);gap:18px;align-items:start}.panel{padding:21px;margin-bottom:18px}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:17px}.panel-title{font-size:17px;font-weight:800;display:flex;align-items:center;gap:9px}.panel-subtitle{font-size:12px;color:var(--muted);margin-top:5px}.pill{border-radius:999px;padding:6px 10px;background:#292d47;color:#c9c5ff;font-size:11px;font-weight:700;white-space:nowrap}.task-form{display:grid;grid-template-columns:minmax(0,1fr) 125px auto;gap:9px;margin-bottom:16px}.field{width:100%;background:#111426;border:1px solid #353a59;border-radius:11px;padding:12px;color:var(--text);min-width:0}.field::placeholder{color:#707694}.task-filters{display:flex;gap:7px;margin-bottom:14px;flex-wrap:wrap}.filter-btn{background:transparent;color:var(--muted);border:1px solid transparent;border-radius:9px;padding:7px 11px;font-size:12px}.filter-btn.active{background:#302b4d;border-color:#55477f;color:#e6dcff}.task-list{display:flex;flex-direction:column;gap:9px}.task-item{display:flex;align-items:center;gap:12px;padding:13px;background:#15182a;border:1px solid #2c304b;border-radius:14px;min-width:0}.task-item.done{opacity:.68}.task-check{width:21px;height:21px;flex-shrink:0;border-radius:7px;border:1.5px solid #62698d;background:transparent;color:#111323;display:grid;place-items:center;padding:0;font-size:13px}.task-item.done .task-check{background:var(--green);border-color:var(--green)}.task-info{flex:1;min-width:0}.task-name{font-size:13px;font-weight:700;overflow-wrap:anywhere}.task-item.done .task-name{text-decoration:line-through;color:var(--muted)}.task-meta{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-top:6px}.tag{font-size:10px;border-radius:6px;padding:4px 6px;background:#252a42;color:var(--muted)}.tag.easy{color:#8ee9be;background:#19392f}.tag.normal{color:#9edbff;background:#193449}.tag.hard{color:#ffb1d4;background:#45233a}.xp-tag{font-size:11px;color:var(--yellow);font-weight:800;white-space:nowrap}.delete-btn{border:0;background:transparent;color:#858ba9;font-size:18px;padding:4px 6px;border-radius:7px}.delete-btn:hover{color:#ff9ac8;background:#3d2338}.empty{text-align:center;padding:32px 10px;color:var(--muted);font-size:13px}.empty-icon{font-size:31px;margin-bottom:9px}.timer-panel{text-align:center}.timer-mode{display:inline-block;font-size:11px;color:var(--blue);letter-spacing:1.8px;font-weight:800;background:#173044;padding:7px 10px;border-radius:8px}.timer-display{font-variant-numeric:tabular-nums;font-size:clamp(44px,6vw,62px);font-weight:850;letter-spacing:2px;margin:15px 0 5px}.timer-hint{font-size:12px;color:var(--muted);margin-bottom:17px}.timer-controls{display:flex;justify-content:center;gap:9px}.timer-settings{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:16px;color:var(--muted);font-size:12px}.timer-settings input{width:70px;text-align:center;padding:8px}.random-box{background:linear-gradient(135deg,#272044,#192c42);border:1px solid #4b4671;border-radius:16px;padding:17px}.random-box p{color:var(--muted);font-size:12px;line-height:1.6;margin:7px 0 14px}.random-result{font-weight:800;font-size:16px;line-height:1.5;overflow-wrap:anywhere;margin:9px 0}.chart-wrap{display:grid;grid-template-columns:125px 1fr;align-items:center;gap:16px}.chart-canvas{width:125px;height:125px;max-width:100%}.chart-legend{display:flex;flex-direction:column;gap:13px}.legend-row{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}.legend-dot{width:9px;height:9px;border-radius:3px}.legend-row strong{margin-left:auto;color:var(--text);font-size:14px}.completion-head{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted);margin:17px 0 9px}.completion-head strong{color:var(--text);font-size:15px}.footer{text-align:center;color:#737997;font-size:11px;padding:8px 0 0}.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#252b42;border:1px solid #555d83;color:#f4f4ff;padding:12px 17px;border-radius:12px;box-shadow:0 12px 30px #0005;font-size:13px;z-index:10;transition:.25s;max-width:90vw;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}.modal-backdrop{position:fixed;inset:0;background:#050610b8;display:none;place-items:center;padding:20px;z-index:5}.modal-backdrop.show{display:grid}.modal{max-width:400px;width:100%;background:#1b1f34;border:1px solid #454b70;border-radius:20px;padding:25px;text-align:center;box-shadow:0 20px 80px #0008}.modal .big{font-size:44px}.modal h2{margin:10px 0}.modal p{color:var(--muted);font-size:13px;line-height:1.7}.hidden{display:none!important}
+@media(max-width:820px){.hero{grid-template-columns:1fr}.main-grid{grid-template-columns:1fr}.profile-card{min-height:160px}.right-column{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}.right-column .panel{margin-bottom:0}.right-column .timer-panel{grid-row:span 2}}
+@media(max-width:560px){.app{padding:19px 13px 32px}.topbar{align-items:flex-start;margin-bottom:19px}.top-right{font-size:11px}.brand-icon{width:42px;height:42px}.brand p{font-size:10px}.hero-card,.profile-card,.panel{padding:17px;border-radius:17px}.stats{gap:8px}.stat-card{padding:13px 11px}.stat-value{font-size:23px}.stat-top{font-size:10px}.stat-note{font-size:10px}.task-form{grid-template-columns:1fr 105px}.task-form .btn{grid-column:1/-1}.right-column{display:flex;flex-direction:column}.right-column .panel{width:100%}.chart-wrap{grid-template-columns:105px 1fr;gap:10px}.chart-canvas{width:105px;height:105px}.timer-display{font-size:49px}.task-item{gap:9px;padding:11px}.xp-tag{font-size:10px}}
+
+/* Calm redesign: clearer hierarchy, softer colors, less visual noise */
+:root{
+ --bg:#f5f6f2;--panel:#ffffff;--panel2:#f7f8f5;--line:#e4e8df;
+ --text:#28352f;--muted:#78847c;--purple:#758b78;--blue:#7ba9a1;
+ --green:#4f9a78;--pink:#c98e9e;--yellow:#b88943;
+}
+body{background:#f5f6f2;color:var(--text);font-family:Inter,"Noto Sans TC",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.05px}
+.app{max-width:1080px;padding:28px 24px 42px}
+.topbar{margin-bottom:24px}.brand{gap:13px}.brand-icon{background:#e3ece3;color:#45664f;box-shadow:none;border:1px solid #d5e1d5}.brand h1{font-size:25px;letter-spacing:0}.brand p{color:#8a968c;letter-spacing:1px}.top-right{color:#77847b}.save-dot{box-shadow:none}
+.hero{grid-template-columns:1.35fr .85fr;gap:16px;margin-bottom:16px}
+.hero-card,.panel,.stat-card{background:#fff;border:1px solid #e5e9e1;border-radius:18px;box-shadow:0 3px 14px #334b3510}
+.hero-card{padding:28px 30px}.hero-card:after{content:none}.eyebrow{color:#6f8c76;letter-spacing:1.2px;font-size:10px}.hero-card h2{font-size:clamp(25px,3vw,34px);line-height:1.38;margin:13px 0 10px;letter-spacing:-.5px}.hero-card h2 span{color:#63856c}.hero-card p{color:#77847b;line-height:1.85;font-size:14px}.hero-actions{margin-top:22px;gap:9px}
+.btn{border-radius:10px;padding:11px 15px;font-size:13px;box-shadow:none!important}.btn:hover{transform:translateY(-1px);filter:brightness(.98)}.btn-primary{background:#6e8d75;color:#fff}.btn-secondary{background:#f3f6f1;color:#526557;border:1px solid #dfe7dc}.btn-danger{background:#fbf0f1;color:#a65d6e;border:1px solid #f0dadd}
+.profile-card{padding:25px;gap:20px}.level-label{color:#879188;font-size:12px}.level-number{font-size:26px;font-weight:800}.rank-icon{width:48px;height:48px;border-radius:15px;background:#edf3ec;border:1px solid #e0e9de}.xp-line{color:#78847c}.xp-line strong{color:#35463a}.progress{height:8px;background:#edf0eb}.progress-fill{background:#8eb99a}
+.stats{gap:13px;margin-bottom:16px}.stat-card{padding:17px 20px}.stat-top{color:#829087}.stat-icon{opacity:.8}.stat-value{font-size:27px;color:#33443a;margin:9px 0 3px}.stat-note{color:#8b968d}
+.main-grid{grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:16px}.panel{padding:22px;margin-bottom:16px}.panel-head{margin-bottom:19px}.panel-title{font-size:16px;letter-spacing:0}.panel-subtitle{color:#879188;line-height:1.6}.pill{background:#f0f4ee;color:#6e8572;border:1px solid #e4ebe1;font-size:10px;letter-spacing:.2px}
+.field{background:#fbfcfa;border:1px solid #e0e6dd;color:#34453a;border-radius:10px;padding:12px}.field::placeholder{color:#a0aaa1}.field:focus{border-color:#91b49a;outline:2px solid #e7f0e7;outline-offset:0}.task-form{gap:8px;margin-bottom:18px}.filter-btn{color:#879188;padding:8px 12px}.filter-btn.active{background:#edf4ed;border-color:#dbe7da;color:#4e7057}.task-list{gap:8px}.task-item{background:#fcfdfb;border:1px solid #e8ece5;border-radius:12px;padding:13px;gap:11px}.task-item.done{background:#f7f9f6;opacity:.78}.task-check{border-color:#c4d0c4;border-radius:6px;color:#fff}.task-item.done .task-check{background:#75a884;border-color:#75a884}.task-name{font-size:13px;color:#34443a}.task-meta{gap:6px}.tag{background:#f0f3ee;color:#7d897f;border-radius:5px}.tag.easy{color:#4c8563;background:#eaf4ec}.tag.normal{color:#4f7c91;background:#eaf2f6}.tag.hard{color:#a16d7d;background:#f8edf0}.xp-tag{color:#a67d3d}.delete-btn{color:#a4ada5}.delete-btn:hover{color:#a65d6e;background:#fbf0f1}
+.empty{color:#89948b}.timer-panel{text-align:center}.timer-mode{color:#668b73;background:#edf4ed;letter-spacing:1px;border-radius:7px}.timer-display{font-size:58px;font-weight:750;letter-spacing:1px;color:#34483a;margin:18px 0 7px}.timer-hint{color:#849087;line-height:1.6}.timer-settings{color:#879188}.random-box{background:#f5f8f3;border:1px solid #e4ebe0;border-radius:13px;padding:17px}.random-box .eyebrow{color:#6f8c76}.random-box p{color:#7f8b81;line-height:1.75}.random-result{color:#34483a;font-size:16px;min-height:24px}.chart-wrap{gap:15px}.chart-legend{gap:14px}.legend-row{color:#7f8b81}.legend-row strong{color:#34443a}.completion-head{color:#7f8b81}.completion-head strong{color:#34443a}.footer{color:#9aa39b;padding-top:10px}
+.toast{background:#fff;border:1px solid #dce6da;color:#34443a;box-shadow:0 8px 28px #334b3518}.modal-backdrop{background:#28352f55}.modal{background:#fff;border:1px solid #e2e8df;box-shadow:0 16px 50px #28352f20}.modal p{color:#7d897f}
+/* Keep the page calm on smaller screens too */
+@media(max-width:820px){.hero{grid-template-columns:1fr}.main-grid{grid-template-columns:1fr}.right-column{display:grid;grid-template-columns:1fr 1fr;gap:14px}.right-column .timer-panel{grid-row:span 2}}
+@media(max-width:560px){.app{padding:17px 12px 28px}.topbar{margin-bottom:17px}.brand h1{font-size:22px}.hero-card,.profile-card,.panel{padding:17px;border-radius:15px}.hero-card h2{font-size:27px}.stats{gap:8px}.stat-card{padding:13px 11px;border-radius:13px}.stat-value{font-size:23px}.stat-note{font-size:10px}.task-form{grid-template-columns:1fr 105px}.task-form .btn{grid-column:1/-1}.right-column{display:flex;flex-direction:column}.right-column .panel{width:100%}.chart-wrap{grid-template-columns:105px 1fr;gap:10px}.chart-canvas{width:105px;height:105px}.timer-display{font-size:49px}}
+
+
+/* User-provided image assets */
+.focus-illustration{display:block;width:150px;height:84px;object-fit:contain;margin:0 auto 4px;border-radius:12px;mix-blend-mode:multiply}
+.reward-illustration{display:block;width:112px;height:112px;object-fit:contain;margin:0 auto 8px;border-radius:12px}
+@media(max-width:560px){.focus-illustration{width:130px;height:72px}.reward-illustration{width:100px;height:100px}}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><div class="brand-icon">⚔️</div><div><h1>Quest Mode</h1><p>拖延症救星 · DAILY QUEST</p></div></div>
+    <div class="top-right"><span><i class="save-dot"></i>自動保存中</span><span id="todayDate"></span></div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-card">
+      <div class="eyebrow">✦ YOUR NEXT LEVEL STARTS NOW</div>
+      <h2>今天也來完成<br><span>一個小小任務吧。</span></h2>
+      <p>不用一次完成所有事，先開始一件就很棒了。每完成一個任務，就離下一個等級更近一步。</p>
+      <div class="hero-actions"><button class="btn btn-primary" id="focusJump">▶ 開始專注</button><button class="btn btn-secondary" id="randomJump">🎲 幫我選任務</button></div>
+    </div>
+    <div class="profile-card">
+      <div class="profile-head"><div><div class="level-label">CURRENT RANK</div><div class="level-number">LV. <span id="levelNum">1</span> <span style="font-size:14px;color:var(--purple)" id="rankName">新手冒險者</span></div></div><div class="rank-icon" id="rankIcon">🧙</div></div>
+      <div><div class="xp-line"><span>經驗值 XP</span><strong id="xpText">0 / 100 XP</strong></div><div class="progress"><div class="progress-fill" id="xpBar"></div></div></div>
+      <div class="level-label">✨ 每一次開始，都算數。</div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat-card"><div class="stat-top"><span>今日任務</span><span class="stat-icon">📜</span></div><div class="stat-value" id="totalStat">0</div><div class="stat-note">已加入任務清單</div></div>
+    <div class="stat-card"><div class="stat-top"><span>完成任務</span><span class="stat-icon">🏆</span></div><div class="stat-value" id="doneStat">0</div><div class="stat-note">每一步都值得記錄</div></div>
+    <div class="stat-card"><div class="stat-top"><span>完成率</span><span class="stat-icon">🚀</span></div><div class="stat-value" id="rateStat">0%</div><div class="stat-note">朝目標再前進一點</div></div>
+  </section>
+
+  <div class="main-grid">
+    <main>
+      <section class="panel">
+        <div class="panel-head"><div><div class="panel-title">📜 今日任務清單</div><div class="panel-subtitle">把大目標拆成一個個可以完成的小任務。</div></div><span class="pill" id="taskCountPill">0 QUESTS</span></div>
+        <form class="task-form" id="taskForm">
+          <input class="field" id="taskInput" maxlength="90" placeholder="輸入一個想完成的任務…" required>
+          <select class="field" id="difficulty" aria-label="任務難度"><option value="easy">簡單 · +10 XP</option><option value="normal" selected>普通 · +20 XP</option><option value="hard">困難 · +35 XP</option></select>
+          <button class="btn btn-primary" type="submit">＋ 新增任務</button>
+        </form>
+        <div class="task-filters"><button class="filter-btn active" data-filter="all">全部任務</button><button class="filter-btn" data-filter="active">待完成</button><button class="filter-btn" data-filter="done">已完成</button></div>
+        <div class="task-list" id="taskList"></div>
+      </section>
+      <section class="panel">
+        <div class="panel-head"><div><div class="panel-title">📊 冒險進度</div><div class="panel-subtitle">看看今天的任務完成狀況。</div></div><span class="pill">LIVE STATS</span></div>
+        <div class="chart-wrap"><canvas id="taskChart" class="chart-canvas" width="250" height="250" aria-label="任務完成率圓餅圖"></canvas><div class="chart-legend"><div class="legend-row"><span class="legend-dot" style="background:var(--green)"></span>已完成 <strong id="chartDone">0</strong></div><div class="legend-row"><span class="legend-dot" style="background:#414762"></span>待完成 <strong id="chartActive">0</strong></div><div class="legend-row"><span class="legend-dot" style="background:var(--purple)"></span>累積經驗 <strong id="chartXp">0 XP</strong></div></div></div>
+        <div class="completion-head"><span>今日完成進度</span><strong id="completionText">0%</strong></div><div class="progress"><div class="progress-fill" id="completionBar"></div></div>
+      </section>
+    </main>
+
+    <aside class="right-column">
+      <section class="panel timer-panel" id="timerSection">
+        <div class="panel-head"><div style="text-align:left"><div class="panel-title">⏱️ 專注計時器</div><div class="panel-subtitle">一次專心一件事。</div></div><span class="pill">FOCUS</span></div>
+        <img class="focus-illustration" src="assets/background.jpeg" alt="放鬆冥想的小人插圖">
+        <div class="timer-mode" id="timerMode">READY TO FOCUS</div>
+        <div class="timer-display" id="timerDisplay">25:00</div>
+        <div class="timer-hint" id="timerHint">設定時間，準備開始你的專注回合。</div>
+        <div class="timer-controls"><button class="btn btn-primary" id="timerStart">▶ 開始</button><button class="btn btn-secondary" id="timerReset">↻ 重設</button></div>
+        <div class="timer-settings"><label for="minutesInput">專注分鐘</label><input class="field" type="number" id="minutesInput" min="1" max="120" value="25"><span>分鐘</span></div>
+      </section>
+      <section class="panel">
+        <div class="panel-head"><div><div class="panel-title">🎲 命運任務抽選</div><div class="panel-subtitle">選不出來？交給命運吧！</div></div></div>
+        <div class="random-box"><div class="eyebrow">NEXT QUEST</div><div class="random-result" id="randomResult">準備好開始冒險了嗎？</div><p id="randomHint">按下按鈕，從尚未完成的任務中抽出一個。</p><button class="btn btn-primary" id="drawTask" style="width:100%">🎲 抽出我的下一個任務</button></div>
+      </section>
+    </aside>
+  </div>
+  <div class="footer">QUEST MODE · 每次完成，都是一次升級。資料只保存在目前的瀏覽器中。</div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="modal-backdrop" id="levelModal"><div class="modal"><img class="reward-illustration" src="assets/gift.jpeg" alt="禮物獎勵插圖"><h2 id="modalTitle">升級成功！</h2><p id="modalText">你又更進步了一點！</p><button class="btn btn-primary" id="closeModal">繼續冒險</button></div></div>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const STORAGE_KEY = 'questModeSave_v1';
+  const xpValues = {easy:10, normal:20, hard:35};
+  const difficultyNames = {easy:'簡單',normal:'普通',hard:'困難'};
+  const ranks = ['新手冒險者','任務探索者','專注學徒','效率勇者','傳說玩家'];
+  let state = {tasks:[], xp:0, level:1, filter:'all'};
+  let timerSeconds = 25*60, timerInterval = null, timerRunning = false, toastTimer = null;
+  const today = new Date();
+  $('todayDate').textContent = `${today.getMonth()+1}月${today.getDate()}日`;
+
+  function loadState(){
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+      if(saved && Array.isArray(saved.tasks)){
+        state.tasks = saved.tasks.filter(t => t && typeof t.name === 'string').map(t => ({id:String(t.id),name:t.name,difficulty:xpValues[t.difficulty]?t.difficulty:'normal',done:!!t.done}));
+        state.xp = Math.max(0, Number(saved.xp)||0);
+        state.level = Math.max(1, Math.floor(state.xp/100)+1);
+      } else {
+        state.tasks = [
+          {id:'demo1',name:'完成今天的一項課堂作業',difficulty:'normal',done:false},
+          {id:'demo2',name:'專心讀書 25 分鐘',difficulty:'easy',done:false},
+          {id:'demo3',name:'整理明天要做的事情',difficulty:'easy',done:true}
+        ];
+        state.xp = 10; state.level = 1; saveState();
+      }
+    } catch(e){ state.tasks=[]; state.xp=0; state.level=1; }
+  }
+  function saveState(){
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({tasks:state.tasks,xp:state.xp})); }
+    catch(e){ showToast('瀏覽器無法保存資料，請檢查儲存空間或瀏覽器設定。'); }
+  }
+  function xpIntoLevel(){return state.xp%100}
+  function levelForXp(){return Math.floor(state.xp/100)+1}
+  function showToast(message){
+    const el=$('toast'); el.textContent=message; el.classList.add('show');
+    clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),2600);
+  }
+  function escapeHTML(value){
+    return String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  }
+  function renderTasks(){
+    const list=$('taskList');
+    const tasks=state.tasks.filter(t=>state.filter==='all'||(state.filter==='active'&&!t.done)||(state.filter==='done'&&t.done));
+    $('taskCountPill').textContent=`${state.tasks.length} QUEST${state.tasks.length===1?'':'S'}`;
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.filter===state.filter));
+    if(!tasks.length){
+      list.innerHTML=`<div class="empty"><div class="empty-icon">${state.filter==='done'?'🏅':'🗺️'}</div>${state.filter==='done'?'還沒有完成的任務，完成一個來解鎖成就吧！':state.filter==='active'?'太棒了！目前沒有待完成任務。':'目前還沒有任務，新增第一個任務開始冒險吧！'}</div>`;
+      return;
+    }
+    list.innerHTML=tasks.map(t=>`<div class="task-item ${t.done?'done':''}" data-id="${escapeHTML(t.id)}">
+      <button class="task-check" data-action="toggle" aria-label="${t.done?'取消完成':'標記完成'}">${t.done?'✓':''}</button>
+      <div class="task-info"><div class="task-name">${escapeHTML(t.name)}</div><div class="task-meta"><span class="tag ${t.difficulty}">${difficultyNames[t.difficulty]}</span><span class="tag">${t.done?'已完成':'待完成'}</span></div></div>
+      <span class="xp-tag">${t.done?'✓ 已領取':`+${xpValues[t.difficulty]} XP`}</span>
+      <button class="delete-btn" data-action="delete" aria-label="刪除任務" title="刪除任務">×</button>
+    </div>`).join('');
+  }
+  function renderStats(){
+    const total=state.tasks.length, done=state.tasks.filter(t=>t.done).length, active=total-done, rate=total?Math.round(done/total*100):0;
+    $('totalStat').textContent=total; $('doneStat').textContent=done; $('rateStat').textContent=rate+'%';
+    $('chartDone').textContent=done; $('chartActive').textContent=active; $('chartXp').textContent=state.xp+' XP';
+    $('completionText').textContent=rate+'%'; $('completionBar').style.width=rate+'%';
+    const level=levelForXp(); state.level=level;
+    $('levelNum').textContent=level;
+    $('rankName').textContent=ranks[Math.min(ranks.length-1,Math.floor((level-1)/2))];
+    $('rankIcon').textContent=level>=9?'👑':level>=7?'🦸':level>=5?'🛡️':level>=3?'🧝':'🧙';
+    $('xpText').textContent=`${xpIntoLevel()} / 100 XP`;
+    $('xpBar').style.width=xpIntoLevel()+'%';
+    drawChart(done,active);
+  }
+  function drawChart(done,active){
+    const canvas=$('taskChart'),ctx=canvas.getContext('2d'); if(!ctx)return;
+    const dpr=window.devicePixelRatio||1, size=125;
+    canvas.width=size*dpr;canvas.height=size*dpr;canvas.style.width=size+'px';canvas.style.height=size+'px';
+    ctx.scale(dpr,dpr);ctx.clearRect(0,0,size,size);
+    const cx=size/2,cy=size/2,r=48,inner=32;
+    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle='#414762';ctx.fill();
+    if(done+active>0&&done>0){ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,-Math.PI/2,-Math.PI/2+Math.PI*2*done/(done+active));ctx.closePath();ctx.fillStyle='#71e6b1';ctx.fill();}
+    ctx.globalCompositeOperation='destination-out';ctx.beginPath();ctx.arc(cx,cy,inner,0,Math.PI*2);ctx.fill();ctx.globalCompositeOperation='source-over';
+    ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#f3f3ff';ctx.font='bold 18px system-ui';ctx.fillText((done+active?Math.round(done/(done+active)*100):0)+'%',cx,cy-2);
+    ctx.fillStyle='#a3a8c5';ctx.font='9px system-ui';ctx.fillText('完成率',cx,cy+14);
+  }
+  function render(){renderTasks();renderStats();saveState();}
+  function addTask(name,difficulty){
+    const trimmed=name.trim();if(!trimmed)return;
+    state.tasks.unshift({id:Date.now().toString(36)+Math.random().toString(36).slice(2,7),name:trimmed,difficulty,done:false});
+    $('taskInput').value='';state.filter='all';render();showToast('任務已加入清單！準備開始冒險吧。');
+  }
+  function toggleTask(id){
+    const task=state.tasks.find(t=>t.id===id);if(!task)return;
+    if(!task.done){
+      const oldLevel=levelForXp();task.done=true;state.xp+=xpValues[task.difficulty];const newLevel=levelForXp();
+      render();
+      if(newLevel>oldLevel){$('modalTitle').textContent=`升級成功！LV. ${newLevel}`;$('modalText').textContent=`你完成任務並獲得 ${xpValues[task.difficulty]} XP。繼續保持這份成就感！`;$('levelModal').classList.add('show');}
+      else showToast(`任務完成！獲得 ${xpValues[task.difficulty]} XP ✨`);
+    } else {
+      task.done=false;state.xp=Math.max(0,state.xp-xpValues[task.difficulty]);render();showToast('已取消完成，並扣回這項任務的經驗值。');
+    }
+  }
+  function deleteTask(id){
+    const task=state.tasks.find(t=>t.id===id);if(!task)return;
+    if(task.done)state.xp=Math.max(0,state.xp-xpValues[task.difficulty]);
+    state.tasks=state.tasks.filter(t=>t.id!==id);render();showToast('任務已刪除。');
+  }
+  function drawRandomTask(){
+    const pending=state.tasks.filter(t=>!t.done);
+    if(!pending.length){$('randomResult').textContent='目前沒有待完成任務 🎉';$('randomHint').textContent='新增一個新任務，繼續你的冒險吧！';return;}
+    const task=pending[Math.floor(Math.random()*pending.length)];
+    $('randomResult').textContent=task.name;$('randomHint').textContent=`難度：${difficultyNames[task.difficulty]} · 完成可獲得 ${xpValues[task.difficulty]} XP`;
+    showToast('命運選中了這個任務！就從它開始吧。');
+  }
+  function updateTimerDisplay(){const m=Math.floor(timerSeconds/60),s=timerSeconds%60;$('timerDisplay').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}
+  function stopTimer(){clearInterval(timerInterval);timerInterval=null;timerRunning=false;$('timerStart').textContent='▶ 開始';}
+  function startTimer(){
+    if(timerRunning){stopTimer();$('timerMode').textContent='PAUSED';$('timerHint').textContent='已暫停，準備好再繼續。';return;}
+    if(timerSeconds<=0)timerSeconds=Math.max(1,Math.min(120,Number($('minutesInput').value)||25))*60;
+    timerRunning=true;$('timerStart').textContent='Ⅱ 暫停';$('timerMode').textContent='FOCUS IN PROGRESS';$('timerHint').textContent='把注意力留給眼前這一件事。';
+    timerInterval=setInterval(()=>{
+      timerSeconds--;updateTimerDisplay();
+      if(timerSeconds<=0){stopTimer();$('timerMode').textContent='ROUND COMPLETE';$('timerHint').textContent='專注回合結束！起來伸展一下吧。';showToast('🎉 專注回合完成！休息一下再繼續。');}
+    },1000);
+  }
+  function resetTimer(){
+    stopTimer();timerSeconds=Math.max(1,Math.min(120,Number($('minutesInput').value)||25))*60;updateTimerDisplay();
+    $('timerMode').textContent='READY TO FOCUS';$('timerHint').textContent='設定時間，準備開始你的專注回合。';
+  }
+  $('taskForm').addEventListener('submit',e=>{e.preventDefault();addTask($('taskInput').value,$('difficulty').value);});
+  $('taskList').addEventListener('click',e=>{
+    const btn=e.target.closest('button[data-action]');if(!btn)return;
+    const item=btn.closest('.task-item');if(!item)return;
+    if(btn.dataset.action==='toggle')toggleTask(item.dataset.id);
+    if(btn.dataset.action==='delete')deleteTask(item.dataset.id);
+  });
+  document.querySelectorAll('.filter-btn').forEach(b=>b.addEventListener('click',()=>{state.filter=b.dataset.filter;renderTasks();}));
+  $('drawTask').addEventListener('click',drawRandomTask);
+  $('randomJump').addEventListener('click',()=>{drawRandomTask();$('randomResult').scrollIntoView({behavior:'smooth',block:'center'});});
+  $('focusJump').addEventListener('click',()=>{$('timerSection').scrollIntoView({behavior:'smooth',block:'center'});if(!timerRunning)startTimer();});
+  $('timerStart').addEventListener('click',startTimer);
+  $('timerReset').addEventListener('click',resetTimer);
+  $('minutesInput').addEventListener('change',()=>{const val=Math.max(1,Math.min(120,Number($('minutesInput').value)||25));$('minutesInput').value=val;if(!timerRunning)resetTimer();});
+  $('closeModal').addEventListener('click',()=>$('levelModal').classList.remove('show'));
+  $('levelModal').addEventListener('click',e=>{if(e.target===$('levelModal'))$('levelModal').classList.remove('show');});
+  window.addEventListener('resize',()=>drawChart(state.tasks.filter(t=>t.done).length,state.tasks.filter(t=>!t.done).length));
+  loadState();render();updateTimerDisplay();
+})();
+</script>
+</body>
+</html>
